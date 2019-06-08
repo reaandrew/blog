@@ -2,6 +2,8 @@
 #
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
+user:
+  email: email@andrewr
 jobs:
   build:
     docker:
@@ -27,4 +29,9 @@ jobs:
             git submodule update --remote
       # specify any bash command here prefixed with `run: `
       - run: curl -Ls https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz | sudo tar -C /usr/local/bin -xz hugo
+      - run: 
+          name: "Set git identity"
+          command: |
+            git config --global user.email "email@andrewrea.co.uk"
+            git config --global user.name "Andy Rea"
       - run: ./deploy.sh
