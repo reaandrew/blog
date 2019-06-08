@@ -1,7 +1,3 @@
 [submodule "themes/book"]
 	path = themes/book
 	url = https://github.com/alex-shpak/hugo-book
-[submodule "public"]
-	path = public
-	url = git@github.com:reaandrew/reaandrew.github.io.git
-	branch = master
