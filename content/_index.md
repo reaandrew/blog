@@ -5,4 +5,4 @@ type: docs
 
 # Hello, world!
 
-This is a test page to get used to Hugo
+This is a test page to get used to Hugo.  Getting used to the structure.
