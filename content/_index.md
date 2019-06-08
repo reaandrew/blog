@@ -3,7 +3,7 @@ title: Hello World
 type: docs
 ---
 
-# Hello, world!
+# Getting back into blogging with Hugo!
 
 This is a test page to get used to Hugo.
 
