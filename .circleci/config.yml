@@ -20,7 +20,10 @@ jobs:
 
       - run: git submodule sync && git submodule update --init
 
-      - run: git rm -f $HUGO_BUILD_DIR > /dev/null 2>&1 || :
+      - run: 
+          name: "Remove the folder from the index"
+          command: |
+            git rm -f $HUGO_BUILD_DIR > /dev/null 2>&1 || :
 
       - run: rm -rf .git/modules/$HUGO_BUILD_DIR
 
