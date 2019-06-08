@@ -1,3 +1,4 @@
+# https://willschenk.com/articles/2018/automating_hugo_with_circleci/
 version: 2
 jobs:
   build:
