@@ -19,7 +19,12 @@ jobs:
     ####   /go/src/bitbucket.org/circleci/go-tool
     working_directory: /go/src/github.com/reaandrew/blog
     steps:
-      - run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      - run: 
+        name: "Trust Github SSH Host"
+        commands: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
       - run: git clone --recurse-submodules git@github.com:reaandrew/blog.git .
       - run: curl -Ls https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz | sudo tar -C /usr/local/bin -xz hugo
       - run: 
