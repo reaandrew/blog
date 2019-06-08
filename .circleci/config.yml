@@ -21,7 +21,7 @@ jobs:
     steps:
       - run: 
           name: "Trust Github SSH Host"
-          commands: |
+          command: |
             mkdir -p ~/.ssh
             chmod 700 ~/.ssh
             ssh-keyscan -H github.com >> ~/.ssh/known_hosts
