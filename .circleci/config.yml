@@ -25,7 +25,9 @@ jobs:
             mkdir -p ~/.ssh
             chmod 700 ~/.ssh
             ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-      - run: git clone -b master --single-branch --recurse-submodules git@github.com:reaandrew/blog.git .
+      - run: git clone --recurse-submodules git@github.com:reaandrew/blog.git .
+      - run: git checkout master
+      - run: git status
       - run: curl -Ls https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_extended_0.55.6_Linux-64bit.tar.gz | sudo tar -C /usr/local/bin -xz hugo
       - run: 
           name: "Set git identity"
