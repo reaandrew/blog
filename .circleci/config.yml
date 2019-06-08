@@ -32,6 +32,8 @@ jobs:
       - run: 
           name: "Set git identity"
           command: |
+            # https://discuss.circleci.com/t/bizarre-workaround-needed-for-github-deployment/5152
+            git config --global -l
             git config --global user.email "email@andrewrea.co.uk"
             git config --global user.name "Andy Rea"
       - run: ./deploy.sh
