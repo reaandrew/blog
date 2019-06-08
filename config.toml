@@ -1,3 +1,4 @@
 baseURL = "https://reaandrew.github.io/"
 languageCode = "en-gb"
 title = "Andy Rea's Blog"
+pygmentsCodeFences = true
