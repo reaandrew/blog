@@ -18,12 +18,13 @@ jobs:
       # checkout the repository
       - checkout
 
-      # install git submodules for managing third-party dependencies
       - run: git submodule sync && git submodule update --init
 
-      # Link the public dir to the gh-pages branch
+      - run: git rm -f $HUGO_BUILD_DIR > /dev/null 2>&1 || :
 
-      - run: rm -fr $HUGO_BUILD_DIR && git worktree add $HUGO_BUILD_DIR git@github.com:reaandrew/reaandrew.github.io.git
+      - run: rm -rf .git/modules/$HUGO_BUILD_DIR
+
+      - run: git submodule add -b master git@github.com:reaandrew/reaandrew.github.io.git $HUGO_BUILD_DIR
 
       # build with Hugo
       - run: HUGO_ENV=production hugo -t book -v -d $HUGO_BUILD_DIR
@@ -32,4 +33,4 @@ jobs:
       - run: git config --global user.email "email@andrewrea.co.uk" && git config --global user.name "CircleCI Bot"
 
       # Push the generated files back to github
-      - run: cd $HUGO_BUILD_DIR && git add --all && git commit -m "Automated publish to gh-pages [ci skip]" && git push
+      - run: cd $HUGO_BUILD_DIR && git add --all && git commit -m "rebuilding site `date`" && git push
