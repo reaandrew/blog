@@ -10,30 +10,27 @@ jobs:
     working_directory: ~/hugo
     environment:
       HUGO_BUILD_DIR: ~/hugo/public
+      REPO: git@github.com:reaandrew/reaandrew.github.io.git
     steps:
-
-      # install git
       - run: apk update && apk add git
-
-      # checkout the repository
       - checkout
-
       - run: git submodule sync && git submodule update --init
-
       - run: 
-          name: "Remove the folder from the index"
+          name: "Clean refresh of the sub module"
           command: |
             git rm -f $HUGO_BUILD_DIR > /dev/null 2>&1 || :
-
-      - run: rm -rf .git/modules/$HUGO_BUILD_DIR
-
-      - run: git submodule add -b master git@github.com:reaandrew/reaandrew.github.io.git $HUGO_BUILD_DIR
-
-      # build with Hugo
+            rm -rf .git/modules/$HUGO_BUILD_DIR
+      - run: git submodule add -b master $REPO $HUGO_BUILD_DIR
       - run: HUGO_ENV=production hugo -t book -v -d $HUGO_BUILD_DIR
-
-      # Set some variables to add to the commit message
-      - run: git config --global user.email "email@andrewrea.co.uk" && git config --global user.name "CircleCI Bot"
-
-      # Push the generated files back to github
-      - run: cd $HUGO_BUILD_DIR && git add --all && git commit -m "rebuilding site `date`" && git push
+      - run: 
+          name: "Set the git identity"
+          command: |
+            git config --global user.email "email@andrewrea.co.uk"
+            git config --global user.name "CircleCI"
+      - run: 
+          name: "Commit the changes"
+          command: |
+            cd $HUGO_BUILD_DIR
+            git add --all
+            git commit -m "rebuilding site `date`"
+            git push
