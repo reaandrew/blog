@@ -1,8 +1,7 @@
 ---
 author: "Andy Rea"
-date: 2019-06-09
+date: 2019-06-08
 title: Getting back into blogging with Hugo!
-weight: 10
 draft: false
 ---
 
