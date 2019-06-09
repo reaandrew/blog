@@ -2,3 +2,15 @@ baseURL = "https://reaandrew.github.io/"
 languageCode = "en-gb"
 title = "Andy Rea's Blog"
 pygmentsCodeFences = true
+
+[Author]
+  name = "Andy Rea"
+  email = "email@andrewrea.co.uk"
+  github = "reaandrew"
+  twitter = "rea_andrew"
+  reddit = "reaandrew"
+  linkedin = "reaandrew"
+  stackoverflow = "users/67959/rea-andrew"
+  youtube = "UCPQcL92tkPkvTdhQZ8EydKQ" # or channel/channelname
+
+
