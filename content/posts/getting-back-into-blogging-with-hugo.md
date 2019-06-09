@@ -47,7 +47,3 @@ jobs:
             git push
 ```
 
-## This is something else
-
-### This is something cool
-
