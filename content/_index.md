@@ -15,9 +15,6 @@ I am using Circle CI for the Hugo generation and git publishing workflow (the co
 version: 2
 jobs:
   build:
-    branches:
-      ignore:
-        - gh-pages
     docker:
       - image: cibuilds/hugo:latest
     working_directory: ~/hugo
