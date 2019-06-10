@@ -1,7 +1,7 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 1"
 date: 2019-06-09T14:43:46Z
-draft: true
+draft: false
 ---
 
 **This is part of a mini series of blog posts building a simple stress tool in Go.  [The contents of the series can be found here](/posts/creating-a-simple-stress-test-tool-in-go/).**
@@ -89,3 +89,7 @@ jobs:
       - run: goxz -d out
       - run: ghr v0.1.0 out
 ```
+
+If you have not set the environment variable `GITHUB_TOKEN` in the Circle CI console `ghr` will error so this must be set.  Once this has built the releases will be uploaded and the repository will be tagged.
+
+![/images/v0.1.0-github-releases.png](/images/v0.1.0-github-releases.png)
