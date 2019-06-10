@@ -13,3 +13,5 @@ draft: true
 - Added a simple test to comfirm that the program works with a "Hello, World!" output message.
 - Updated the circle ci config to use v0.2.0 but there should be a better way of doing this.
 - Added `GOOS=windows go get -u github.com/spf13/cobra` as an extra step which is required for the Windows build (found the solution here : https://github.com/spf13/cobra/issues/250)
+
+![/images/v0.2.0-github-releases.png](/images/v0.2.0-github-releases.png)
