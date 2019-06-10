@@ -4,8 +4,6 @@ date: 2019-06-09T14:43:46Z
 draft: false
 ---
 
-**This is part of a mini series of blog posts building a simple stress tool in Go.  [The contents of the series can be found here](/posts/creating-a-simple-stress-test-tool-in-go/).**
-
 ## Must be continually built and published to github releases supporting Windows, Linux and Mac
 
 The first part is to create a new repository and setup the continuous integration environment which I will use github and circleci for respectively.  I will name the repository and the project `maul`.  [https://github.com/reaandrew/maul.git](https://github.com/reaandrew/maul.git)
