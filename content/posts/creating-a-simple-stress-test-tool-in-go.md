@@ -13,7 +13,7 @@ To create a simple clone of some of siege functionality I want to create an appl
 
 The application:
 
-- must be continually built and published to github releases supporting Windows, Linux and Mac.
+- [Part 1 (v0.1.0): must be continually built and published to github releases supporting Windows, Linux and Mac.](/posts/creating-a-simple-stress-test-tool-in-go-part-1/)
 - must be a CLI.
 - must accept a file arguement of urls to test.
 - must only support the HTTP GET.
@@ -33,4 +33,6 @@ The application:
   - Failed transactions
   - Longest transaction
   - Shortest transaction
+
+The full source code for this series can be found [https://github.com/reaandrew/maul.git](https://github.com/reaandrew/maul.git) with a tag for each of the above versions for you to checkout the source code for each of the steps.
 
