@@ -53,4 +53,3 @@ func TestHelloWorld(t *testing.T) {
 
 I updated the version of the application into the circle ci config to v0.2.0 and lso had to add one extra line to get the Cobra app to cross compile for windows (`GOOS=windows go get -u github.com/spf13/cobra` [https://github.com/spf13/cobra/issues/250](https://github.com/spf13/cobra/issues/250))
 
-![/images/v0.2.0-github-releases.png](/images/v0.2.0-github-releases.png)

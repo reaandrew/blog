@@ -90,4 +90,3 @@ jobs:
 
 If you have not set the environment variable `GITHUB_TOKEN` in the Circle CI console `ghr` will error so this must be set.  Once this has built the releases will be uploaded and the repository will be tagged.
 
-![/images/v0.1.0-github-releases.png](/images/v0.1.0-github-releases.png)
