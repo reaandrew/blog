@@ -6,7 +6,7 @@ draft: false
 
 ## Must be continually built and published to github releases supporting Windows, Linux and Mac
 
-The first part is to create a new repository and setup the continuous integration environment which I will use github and circleci for respectively.  I will name the repository and the project `maul`.  [https://github.com/reaandrew/maul.git](https://github.com/reaandrew/maul.git)
+The first part is to create a new repository and setup the continuous integration environment which I will use github and circleci for respectively.  I will name the repository and the project `surge`.  [https://github.com/reaandrew/surge.git](https://github.com/reaandrew/surge.git)
 
 To begin with I will create a simple hello world application to flush the pipeline with circleci.
 
@@ -44,7 +44,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.12
-    working_directory: /go/src/github.com/reaandrew/maul
+    working_directory: /go/src/github.com/reaandrew/surge
     steps:
       - checkout
       - run: go get -v -t -d ./...
@@ -77,7 +77,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.12
-    working_directory: /go/src/github.com/reaandrew/maul
+    working_directory: /go/src/github.com/reaandrew/surge
     steps:
       - checkout
       - run: go get -u github.com/tcnksm/ghr

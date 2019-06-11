@@ -34,5 +34,5 @@ The application:
   - Longest transaction
   - Shortest transaction
 
-The full source code for this series can be found [https://github.com/reaandrew/maul.git](https://github.com/reaandrew/maul.git) with a tag for each of the above versions for you to checkout the source code for each of the steps.
+The full source code for this series can be found [https://github.com/reaandrew/surge.git](https://github.com/reaandrew/surge.git) with a tag for each of the above versions for you to checkout the source code for each of the steps.
 
