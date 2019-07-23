@@ -1,0 +1,23 @@
+{{ define "main" }}
+  <div class="row">
+    <div class="col">
+      <h1>{{ .Title }}</h1>
+      <h2>{{ .Date.Format "Mon, Jan 2, 2006" }}</h2>
+      {{ .Content }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+  {{if .PrevInSection}}{{.PrevInSection.Permalink}}{{end}}
+    </div>
+    <div class="col">
+      {{if .NextInSection}}
+      <a href="{{.NextInSection.Permalink}}"  class="btn btn-light">
+        {{.NextInSection.Title}} <span class="badge badge-light">{{.NextInSection.ReadingTime}} mins reading time</span>
+      </a>
+      {{else}}
+      <span class="badge badge-secondary">That's the last of the posts for now</span>
+      {{end}}
+    </div>
+  </div>
+{{ end }}

@@ -3,11 +3,6 @@ languageCode = "en-gb"
 title = "Andy Rea's Blog"
 pygmentsCodeFences = true
 
-
-[Params]
-  BookSection = '*'
-  BookEnableJS = true
-
 [Author]
   name = "Andy Rea"
   email = "email@andrewrea.co.uk"
