@@ -1,0 +1,16 @@
+{
+    "family": "backup-github-org", 
+    "networkMode": "awsvpc", 
+    "containerDefinitions": [
+        {
+            "name": "fargate-app", 
+            "image": "007763200772.dkr.ecr.eu-west-2.amazonaws.com/dft-bluebadge/backup_github_org:latest", 
+            "essential": true
+        }
+    ], 
+    "requiresCompatibilities": [
+        "FARGATE"
+    ], 
+    "cpu": "256", 
+    "memory": "512"
+}
