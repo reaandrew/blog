@@ -1,7 +1,7 @@
 ---
 author: "Andy Rea"
 title: "Enumerating Github Repositories in Bash"
-date: 2019-08-19T12:00:00Z
+date: 2019-08-19
 draft: false
 ---
 
