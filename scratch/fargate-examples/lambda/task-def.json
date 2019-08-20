@@ -1,0 +1,38 @@
+{
+    "family": "backup-github-organisation",
+    "networkMode": "awsvpc",
+    "taskRoleArn": "ROLE_NAME_HERE",
+    "executionRoleArn": "ROLE_NAME_HERE",
+    "containerDefinitions": [
+        {
+            "name": "backup-github-organisation",
+            "image": "IMAGE_NAME_HERE",
+            "essential": true,
+            "environment": [
+            {
+              "name": "GITHUB_TOKEN_KEY",
+              "value": "/ci/github/token"
+            },{
+              "name": "GITHUB_ORG",
+              "value": "dft-bluebadge"
+            },{
+              "name": "S3_BUCKET_URL",
+              "value": "s3://backup.dft-bluebadge.org.uk/source-code"
+            }],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "backup-github-organisation",
+                    "awslogs-region": "eu-west-2",
+                    "awslogs-stream-prefix": "backup-github-organisation",
+                    "awslogs-create-group": "true"
+                }
+            }
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "512",
+    "memory": "1024"
+}
