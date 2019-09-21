@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html><head>
+    <title>Creating a Simple Stress Test Tool in Go - Requirements</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" >
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+        <div class="container">
+          <div class="row">
+            <div class="col" id="header"><h1><a href="/">Andy Rea&#39;s Blog</a></h1>
+</div>
+          </div>
+          <div class="row">
+            <div class="col" id="content">
+  <div class="row">
+    <div class="col">
+      <h1>Creating a Simple Stress Test Tool in Go - Requirements</h1>
+      <h2>Sun, Jun 9, 2019</h2>
+      
+
+<h2 id="introduction">Introduction</h2>
+
+<p>One of the tools that has really stuck in my mind over the years is the siege stress test tool <a href="https://github.com/JoeDog/siege">https://github.com/JoeDog/siege</a>.  It was really simple to use, give it a list of urls, add some command line arguments including concurrency, time etc&hellip; and it would begin testing those urls with really clear output.  At the end of the test run it would print out statistics for the entire test like requests per second, average response time etc&hellip;  One thing it also did was make a log of these statistics in tabular form in a file in the home directory which was really useful to compare performance against historical runs.</p>
+
+<p>To create a simple clone of some of siege functionality I want to create an application with the following requirements, each being a separate blog post in this mini series:</p>
+
+<p>The application:</p>
+
+<ul>
+<li><a href="/posts/creating-a-simple-stress-test-tool-in-go-part-1/">Part 1 (v0.1.0): must be continually built and published to github releases supporting Windows, Linux and Mac.</a></li>
+<li><a href="/posts/creating-a-simple-stress-test-tool-in-go-part-2/">Part 2 (v0.2.0): must be a CLI.</a></li>
+<li>must accept a file arguement of urls to test.</li>
+<li>must only support the HTTP GET.</li>
+<li>must accept an argument to read the urls sequentially or at random.</li>
+<li>must accept an argument to configure the number of simulated users.</li>
+<li>must accept an argument to specify the number of iterations.</li>
+<li>must output the same statistics as siege into standard out after the test run:
+
+<ul>
+<li>Transactions (The total number of requests made)</li>
+<li>Availability (1 - (Number of errors / Transactions))</li>
+<li>Elapsed Time (The total time the test took to run)</li>
+<li>Data Transferred (The total number of bytes received from the server)</li>
+<li>Response Time (The average response time in ms)</li>
+<li>Transaction rate (The number of requests per second)</li>
+<li>Concurrency (The number of simulataneous connections)</li>
+<li>Throughput (The average number of bytes of bytes received from the server per second)</li>
+<li>Successful transactions</li>
+<li>Failed transactions</li>
+<li>Longest transaction</li>
+<li>Shortest transaction</li>
+</ul></li>
+</ul>
+
+<p>The full source code for this series can be found <a href="https://github.com/reaandrew/surge.git">https://github.com/reaandrew/surge.git</a> with a tag for each of the above versions for you to checkout the source code for each of the steps.</p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+    
+        <a href="https://reaandrew.github.io/posts/getting-back-into-blogging-with-hugo/"  class="btn btn-light">
+          Getting back into blogging with Hugo! <span class="badge badge-light">2 mins reading time</span>
+        </a>
+    
+    </div>
+    <div class="col">
+      
+      <a href="https://reaandrew.github.io/posts/creating-a-simple-stress-test-tool-in-go-part-1/"  class="btn btn-light">
+        Creating a Simple Stress Test Tool in Go Part 1 <span class="badge badge-light">3 mins reading time</span>
+      </a>
+      
+    </div>
+  </div>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col" id="footer">Copyright 2019 Andy Rea
+</div>
+          </div>
+        </div>
+    </body>
+</html>
