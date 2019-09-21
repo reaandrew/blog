@@ -8,7 +8,11 @@
   </div>
   <div class="row">
     <div class="col">
-  {{if .PrevInSection}}{{.PrevInSection.Permalink}}{{end}}
+    {{if .PrevInSection}}
+        <a href="{{.NextInSection.Permalink}}"  class="btn btn-light">
+          {{.PrevInSection.Title}} <span class="badge badge-light">{{.PrevInSection.ReadingTime}} mins reading time</span>
+        </a>
+    {{end}}
     </div>
     <div class="col">
       {{if .NextInSection}}
