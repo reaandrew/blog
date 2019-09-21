@@ -16,7 +16,7 @@ jobs:
           command: |
             git rm -f $HUGO_BUILD_DIR > /dev/null 2>&1 || :
             rm -rf .git/modules/$HUGO_BUILD_DIR
-      - run: git submodule add -b master $REPO $HUGO_BUILD_DIR
+      - run: git submodule add -f -b master $REPO $HUGO_BUILD_DIR
       - run: HUGO_ENV=production hugo -t reaandrew -v -d $HUGO_BUILD_DIR
       - run: 
           name: "Set the git identity"
@@ -27,6 +27,6 @@ jobs:
           name: "Commit the changes"
           command: |
             cd $HUGO_BUILD_DIR
-            git add --all -f
+            git add --alla -f
             git commit -m "rebuilding site `date`"
             git push
