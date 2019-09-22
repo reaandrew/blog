@@ -1,0 +1,19 @@
+
+h1,h2 {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight:bold;
+}
+
+p{
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.highlight pre{
+  padding:1em;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}

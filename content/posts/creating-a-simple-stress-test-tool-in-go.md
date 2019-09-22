@@ -5,8 +5,6 @@ date: 2019-06-09T13:43:46Z
 draft: false
 ---
 
-## Introduction
-
 One of the tools that has really stuck in my mind over the years is the siege stress test tool [https://github.com/JoeDog/siege](https://github.com/JoeDog/siege).  It was really simple to use, give it a list of urls, add some command line arguments including concurrency, time etc... and it would begin testing those urls with really clear output.  At the end of the test run it would print out statistics for the entire test like requests per second, average response time etc...  One thing it also did was make a log of these statistics in tabular form in a file in the home directory which was really useful to compare performance against historical runs.  
 
 To create a simple clone of some of siege functionality I want to create an application with the following requirements, each being a separate blog post in this mini series:
