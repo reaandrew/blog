@@ -9,6 +9,7 @@ p{
 }
 
 .highlight pre{
+  border-radius: 15px;
   padding:1em;
   overflow-x: auto;
   white-space: pre-wrap;
