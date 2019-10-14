@@ -14,7 +14,7 @@ The application:
 - [Part 1 (v0.1.0): must be continually built and published to github releases supporting Windows, Linux and Mac.](/posts/creating-a-simple-stress-test-tool-in-go-part-1/)
 - [Part 2 (v0.2.0): must be a CLI.](/posts/creating-a-simple-stress-test-tool-in-go-part-2/)
 - must accept a file arguement of urls to test.
-- must only support the HTTP GET.
+- must support http verbs GET,POST,PUT,DELETE.
 - must accept an argument to read the urls sequentially or at random.
 - must accept an argument to configure the number of simulated users.
 - must accept an argument to specify the number of iterations.
