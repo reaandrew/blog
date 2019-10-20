@@ -15,7 +15,7 @@ The application:
 - [Part 2 (v0.2.0): must be a CLI.](/posts/creating-a-simple-stress-test-tool-in-go-part-2/)
 - [Part 3 (v0.3.0): must accept a file arguement of urls to test.](/posts/creating-a-simple-stress-test-tool-in-go-part-3/)
 - [Part 4 (v0.4.0): must support http verbs GET,POST,PUT,DELETE.](/posts/creating-a-simple-stress-test-tool-in-go-part-4/)
-- must accept an argument to read the urls sequentially or at random.
+- [Part 5 (v0.5.0): must accept an argument to read the urls sequentially or at random.](/posts/creating-a-simple-stress-test-tool-in-go-part-5/)
 - must accept an argument to configure the number of simulated users.
 - must accept an argument to specify the number of iterations.
 - must output the same statistics as siege into standard out after the test run:
