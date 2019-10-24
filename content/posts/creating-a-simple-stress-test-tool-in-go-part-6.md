@@ -1,6 +1,6 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 6"
-date: 2019-10-24T12:00:00Z
+date: 2019-10-24T06:00:00Z
 draft: false
 ---
 
