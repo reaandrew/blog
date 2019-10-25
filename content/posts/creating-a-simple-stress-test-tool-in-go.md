@@ -18,7 +18,7 @@ The application:
 - [Part 5 (v0.5.0): must accept an argument to read the urls sequentially or at random.](/posts/creating-a-simple-stress-test-tool-in-go-part-5/)
 - [Part 6 (v0.6.0): must accept an argument to configure the number of simulated users.](/posts/creating-a-simple-stress-test-tool-in-go-part-6/)
 - [Part 7 (v0.7.0): must accept an argument to specify the number of iterations.](/posts/creating-a-simple-stress-test-tool-in-go-part-7/)
-- must output the statistics for Transactions (The total number of requests made) after the test run.
+- [Part 8 (v0.8.0): must output the statistics for Transactions (The total number of requests made) after the test run.](/posts/creating-a-simple-stress-test-tool-in-go-part-8/)
 - must output the statistics for Availability (1 - (Number of errors / Transactions)) after the test run.
 - must output the statistics for Elapsed Time (The total time the test took to run) after the test run.
 - must output the statistics for Data Transferred (The total number of bytes received from the server) after the test run.
