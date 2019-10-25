@@ -18,19 +18,18 @@ The application:
 - [Part 5 (v0.5.0): must accept an argument to read the urls sequentially or at random.](/posts/creating-a-simple-stress-test-tool-in-go-part-5/)
 - [Part 6 (v0.6.0): must accept an argument to configure the number of simulated users.](/posts/creating-a-simple-stress-test-tool-in-go-part-6/)
 - [Part 7 (v0.7.0): must accept an argument to specify the number of iterations.](/posts/creating-a-simple-stress-test-tool-in-go-part-7/)
-- must output the same statistics as siege into standard out after the test run:
-  - Transactions (The total number of requests made)
-  - Availability (1 - (Number of errors / Transactions))
-  - Elapsed Time (The total time the test took to run)
-  - Data Transferred (The total number of bytes received from the server)
-  - Response Time (The average response time in ms)
-  - Transaction rate (The number of requests per second)
-  - Concurrency (The number of simulataneous connections)
-  - Throughput (The average number of bytes of bytes received from the server per second)
-  - Successful transactions
-  - Failed transactions
-  - Longest transaction
-  - Shortest transaction
+- must output the statistics for Transactions (The total number of requests made) after the test run.
+- must output the statistics for Availability (1 - (Number of errors / Transactions)) after the test run.
+- must output the statistics for Elapsed Time (The total time the test took to run) after the test run.
+- must output the statistics for Data Transferred (The total number of bytes received from the server) after the test run.
+- must output the statistics for Response Time (The average response time in ms) after the test run.
+- must output the statistics for Transaction rate (The number of requests per second) after the test run.
+- must output the statistics for Concurrency (The number of simulataneous connections) after the test run.
+- must output the statistics for Throughput (The average number of bytes of bytes received from the server per second) after the test run.
+- must output the statistics for Successful transactions after the test run.
+- must output the statistics for Failed transactions after the test run.
+- must output the statistics for Longest transaction after the test run.
+- must output the statistics for Shortest transaction after the test run.
 
 The full source code for this series can be found [https://github.com/reaandrew/surge.git](https://github.com/reaandrew/surge.git) with a tag for each of the above versions for you to checkout the source code for each of the steps.
 
