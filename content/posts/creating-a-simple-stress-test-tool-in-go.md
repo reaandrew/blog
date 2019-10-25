@@ -17,7 +17,7 @@ The application:
 - [Part 4 (v0.4.0): must support http verbs GET,POST,PUT,DELETE.](/posts/creating-a-simple-stress-test-tool-in-go-part-4/)
 - [Part 5 (v0.5.0): must accept an argument to read the urls sequentially or at random.](/posts/creating-a-simple-stress-test-tool-in-go-part-5/)
 - [Part 6 (v0.6.0): must accept an argument to configure the number of simulated users.](/posts/creating-a-simple-stress-test-tool-in-go-part-6/)
-- must accept an argument to specify the number of iterations.
+- [Part 7 (v0.7.0): must accept an argument to specify the number of iterations.](/posts/creating-a-simple-stress-test-tool-in-go-part-7/)
 - must output the same statistics as siege into standard out after the test run:
   - Transactions (The total number of requests made)
   - Availability (1 - (Number of errors / Transactions))
