@@ -20,7 +20,7 @@ The application:
 - [Part 7 (v0.7.0): must accept an argument to specify the number of iterations.](/posts/creating-a-simple-stress-test-tool-in-go-part-7/)
 - [Part 8 (v0.8.0): must output the statistics for Transactions (The total number of requests made) after the test run.](/posts/creating-a-simple-stress-test-tool-in-go-part-8/)
 - [Part 9 (v0.9.0): must output the statistics for Availability (1 - (Number of errors / Transactions)) after the test run.](/posts/creating-a-simple-stress-test-tool-in-go-part-9/)
-- must output the statistics for Elapsed Time (The total time the test took to run) after the test run.
+- [Part 10 (v0.10.0): must output the statistics for Elapsed Time (The total time the test took to run) after the test run.](/posts/creating-a-simple-stress-test-tool-in-go-part-10/)
 - must output the statistics for Data Transferred (The total number of bytes received from the server) after the test run.
 - must output the statistics for Response Time (The average response time in ms) after the test run.
 - must output the statistics for Transaction rate (The number of requests per second) after the test run.
