@@ -1,7 +1,7 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 13"
 date: 2019-11-05T07:10:00Z
-draft: false
+draft: true
 ---
 
 ## Must output the statistics for Transaction rate (The number of requests per second) after the test run

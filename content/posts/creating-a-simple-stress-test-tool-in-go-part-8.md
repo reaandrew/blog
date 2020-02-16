@@ -1,7 +1,7 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 8"
 date: 2019-10-25T07:00:00Z
-draft: false
+draft: true
 ---
 
 ## Must output the statistics for Transactions (The total number of requests made) after the test run

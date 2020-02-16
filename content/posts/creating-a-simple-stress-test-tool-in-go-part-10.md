@@ -1,7 +1,7 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 10"
 date: 2019-11-03T05:00:00Z
-draft: false
+draft: true
 ---
 
 ## Must output the statistics for Elapsed Time (The total time the test took to run) after the test run

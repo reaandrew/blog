@@ -1,7 +1,7 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 11"
 date: 2019-11-03T07:00:00Z
-draft: false
+draft: true
 ---
 
 ## Must output the statistics for Data Transferred (The total number of bytes received from the server) after the test run.

@@ -1,7 +1,7 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 5"
 date: 2019-10-20T12:00:00Z
-draft: false
+draft: true
 ---
 
 ## Must accept an argument to read the urls sequentially or at random

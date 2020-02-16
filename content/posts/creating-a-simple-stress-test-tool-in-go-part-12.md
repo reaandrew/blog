@@ -1,7 +1,7 @@
 ---
 title: "Creating a Simple Stress Test Tool in Go Part 12"
 date: 2019-11-03T07:10:00Z
-draft: false
+draft: true
 ---
 
 ## Must output the statistics for Response Time (The average response time in ms) after the test run.
