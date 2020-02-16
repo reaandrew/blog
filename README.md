@@ -11,3 +11,5 @@ Awesome way to update sub modules to the latest
 ```
 git submodule foreach git pull origin master
 ```
+
+Uses CircleCI to build and publish
