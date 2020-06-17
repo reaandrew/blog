@@ -13,37 +13,37 @@ This uses docker, it sets up trust with the host so it can connect using the psq
 
 1. Start the instance
 
-```
+```shell
 spd start
 ```
 
 2. Connect to the DB instance
 
-```
+```shell
 spd connect
 ```
 
 3. Execute an SQL file against the running database
 
-```
+```shell
 spd load fubar.sql
 ```
 
 4. Stop the DB instance
 
-```
+```shell
 spd stop
 ```
 
 5. Stop the DB instance and destroy the DB state
 
-```
+```shell
 spd destroy
 ```
 
 ## Here is the script
 
-```
+```shell
 export DEFAULT_PG_PASSWORD=mysecretpassword
 
 run(){
