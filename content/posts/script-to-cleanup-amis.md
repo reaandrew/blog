@@ -29,7 +29,7 @@ I have also put `export AWS_PAGER=""` to avoid the need for key presses to page 
 
 Couple of example usages are:
 
-```
+```shell
 # This will find any AMIs whose name contains 'fubar'.
 ./clean-up-amis.sh fubar
 
@@ -39,7 +39,7 @@ Couple of example usages are:
 
 ## The script!
 
-```
+```shell
 #!/usr/bin/env bash
 export AWS_PAGER=""
 aws ec2 describe-images --owners self | \
