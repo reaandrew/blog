@@ -18,3 +18,15 @@ p{
   white-space: -o-pre-wrap;
   word-wrap: break-word;
 }
+table{
+  margin-bottom:2em;
+}
+tr{
+  border-bottom: #CCC 1px solid !important;
+}
+tr:nth-child(even) {background: #E8E8E8}
+tr:nth-child(odd) {background: #FFF}
+
+td, th{
+  padding:1em;
+}
