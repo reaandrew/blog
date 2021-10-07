@@ -11,7 +11,7 @@ Once you have executed `chmod -x /usr/bin/chmod` (or in other words you have rem
 
 The general answer to this question is that you need to flip the correct permission bits in order to make it executable again.  [chmod](https://github.com/coreutils/coreutils/blob/master/src/chmod.c) itself is a tool which uses underlying system calls to achieve its goal.  You can also do that with other languages very easily.
 
->**NOTE** I am using the `stat` command to output the file access rights in both octal (%a) and human readable (%A) format.
+**NOTE: I am using the `stat` command to output the file access rights in both octal (%a) and human readable (%A) format.**
 
 || command | output| |
 |---|---|---|---|
@@ -29,6 +29,8 @@ The general answer to this question is that you need to flip the correct permiss
 How can we then replicate `chmod -x` when the above now achieves the same functionality as `chmod +x`?  Using bitwise operations again, the first step is to ensure the file is executable and then `XOR` the executable bits which will flip them back to zero as both will be `1`.
 
 > The name XOR stands for “exclusive or” since it performs exclusive disjunction on the bit pairs. In other words, every bit pair must contain opposing bit values to produce a one
+> 
+> <span>Bartosz Zaczyński - https://realpython.com/python-bitwise-operators/</span>
 
 ```python
 #!/usr/bin/env python3                                                                                                 
