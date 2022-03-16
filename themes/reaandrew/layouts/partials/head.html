@@ -1,7 +1,5 @@
 <head>
   <title>{{ .Title }}</title>
-  <script src="/js/ga.js"></script>
-  <script async src="https://www.google-analytics.com/analytics.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link
     href="https://fonts.googleapis.com/css?family=Mansalva|Titillium+Web&display=swap"
@@ -9,6 +7,14 @@
   />
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/page.css" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1GGLJTLKRT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-1GGLJTLKRT');
+  </script>
   <script src="/js/jquery-3.3.1.slim.min.js"></script>
   <script src="/js/popper.min.js"></script>
   <script src="/js/bootstrap.bundle.min.js"></script>
