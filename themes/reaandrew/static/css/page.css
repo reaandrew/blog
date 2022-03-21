@@ -72,3 +72,9 @@ blockquote span{
 code{
   color:#272822;
 }
+
+img{
+  width:100%;
+  max-width: 100%;
+  min-width: 100%;
+}

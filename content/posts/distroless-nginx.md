@@ -142,4 +142,4 @@ The result seen from an elinks browser:
 elinks http://localhost:8080
 ```
 
-<img src="/images/img.png" class="image" />
+[]!(/images/img.png")
