@@ -7,7 +7,7 @@ draft: false
 
 ## TL;DR;
 
-I created a basic version of a distroless NGINX container [https://github.com/reaandrew/nginx-security](https://github.com/reaandrew/nginx-security.)  It has less then 10 running processes and is less than 30MB in size.  It is based on `nginxinc/nginx-unprivileged` and `gcr.io/distroless/base-debian10:nonroot`.
+I created a basic version of a distroless NGINX container [https://github.com/reaandrew/nginx-security](https://github.com/reaandrew/nginx-security)  It has less then 10 running processes and is less than 30MB in size.  It is based on `nginxinc/nginx-unprivileged` and `gcr.io/distroless/base-debian10:nonroot`.
 
 ## Longer version
 
@@ -86,7 +86,7 @@ root@c5eec8fbc239:/# ldd $(which nginx)
 
 3. I have copied some directories from the NGINX installation since I cant create them in the distroless container.
 4. I copy the user and group permissions over.
-5. I set the Dockefile user to be `nginx`.
+5. I set the Dockerfile user to be `nginx`.
 6. I start NGINX in a foreground process without the daemon and rely on Docker to manager the service lifecycle.
 
 ### Results
