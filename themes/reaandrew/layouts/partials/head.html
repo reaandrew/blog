@@ -1,6 +1,17 @@
 <head>
   <title>{{ .Title }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", "}}{{ end }}" />
+  <meta name="description" content="{{ if .Params.Description }}{{ .Params.Description }}{{ else if .Site.Params.Description }}{{ .Site.Params.Description }}{{ else }}My thoughts on programming, scripting and cyber security{{ end }}" />
+
+    <link rel="canonical" href="{{ .Permalink }}" />
+    <meta property="og:url"                content="{{ .Permalink }}" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="{{ .Title }}" />
+    <meta property="og:description"        content="{{ if .Params.Description }}{{ .Params.Description }}{{ else if .Site.Params.Description }}{{ .Site.Params.Description }}{{ else }}My thoughts on programming, scripting and cyber security{{ end }}" />
+  {{ if .Params.Image }}
+    <meta property="og:image"              content="https://andrewrea.co.uk{{ .Params.Image | relURL }}" />
+  {{ end }}
   <link
     href="https://fonts.googleapis.com/css?family=Mansalva|Titillium+Web&display=swap"
     rel="stylesheet"

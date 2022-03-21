@@ -3,6 +3,7 @@ author: "Andy Rea"
 title: "Git log over multiple local repos"
 date: 2022-03-16
 draft: false
+tags: ["shell", "bash", "linux", "git"]
 ---
 
 I find my self at work executing a for loop in bash in order to get some information out of multiple git repos in one hit.  This time I thought it would be useful to create a small script (the thing I keep executing) and to invoke it from a git alias.

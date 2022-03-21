@@ -3,6 +3,7 @@ author: "Andy Rea"
 title: "How to fix chmod -x /usr/bin/chmod"
 date: 2021-10-05
 draft: false
+tags: ["shell", "bash", "linux"]
 ---
 
 I was asked this question years ago (and didnt know the answer then) and just recently I found a question and answer on Stackoverflow which basically solved this using python so I thought it would be fun to draw it out a little further.

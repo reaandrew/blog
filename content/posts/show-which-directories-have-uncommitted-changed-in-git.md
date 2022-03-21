@@ -3,6 +3,7 @@ author: "Andy Rea"
 title: "Show which directories have uncommitted changes in git"
 date: 2022-03-17
 draft: false
+tags: ["shell", "bash", "linux", "git"]
 ---
 
 Similar to my last post, when working with many different git repositories in a single directory, I want to quickly see which of the directories have changes which I have not yet comitted.  Another small script I made does this and I find it very useful.

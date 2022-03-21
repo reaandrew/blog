@@ -3,6 +3,9 @@ author: "Andy Rea"
 title: "Distroless NGINX"
 date: 2022-03-21
 draft: false
+description: "A distroless NGINX container with less than 10 processes and under 30MB in size"
+image: "img.png"
+tags: ["docker", "nginx", "linux", "shell", "security"]
 ---
 
 ## TL;DR;

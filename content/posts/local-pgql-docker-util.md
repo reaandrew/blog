@@ -3,6 +3,7 @@ author: "Andy Rea"
 title: "Local PGSQL Docker Utility"
 date: 2020-06-17
 draft: false
+tags: ["shell", "bash", "linux", "docker", "psql"]
 ---
 
 This is a small set of bash scripts to make it really simple to start, stop, connect and load scripts into a local postgres database.

@@ -3,6 +3,7 @@ author: "Andy Rea"
 title: "Enumerating Github Repositories in Bash"
 date: 2019-08-19
 draft: false
+tags: ["shell", "bash", "linux", "git"]
 ---
 
 I needed to get a list of all the repositories for a specific Github Organisation.  Github limits the page size which you have use which ruled out a single call with a large value.  I was also writing this routine in bash and less is more as they say.
