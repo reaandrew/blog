@@ -89,4 +89,4 @@ The result seen from an elinks browser:
 elinks http://localhost:8080
 ```
 
-![](/images/img.png)
+![](/images/img-readonly.png)
