@@ -4,7 +4,7 @@ title: "Distroless NGINX with a readonly filesystem"
 date: 2022-03-22
 draft: false
 description: "A distroless NGINX container running with a readonly filesystem"
-image: "img.png"
+image: "img-readonly.png"
 tags: ["docker", "nginx", "linux", "shell", "security"]
 ---
 
