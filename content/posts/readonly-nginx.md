@@ -20,6 +20,18 @@ Making the filesystem readonly in Docker still requires you to be explicit about
 
 I used trial and error this time to understand which directories needed to be writable.  With more specific configuration these could probably be reduced, as looking at the directories, they seem really specific to the type of upstream proxy they are intended to support; but for this example I simply kept running the container, mapping the volume it complained about and then retried it until I came up with the required list of volumes.
 
+### Tweak the base image
+
+The only other thing I needed to change was where the PID file got created. Currently, it is created directly in the /tmp directory which would mean I would have to map the entire /tmp directory to make it work which is too much in terms of scope; I want more control than that. So I followed a similar approach to the Dockerfile from `nginxinc/nginx-unprivileged` (which used sed to change the configuration) and simply put the path inside a child directory of nginx. This means I now can create a tempfs just for that directory and know exactly which directories will be writeable.
+
+```Dockerfile
+FROM nginxinc/nginx-unprivileged as build
+
+RUN sed -i 's,/tmp/nginx.pid,/tmp/nginx/nginx.pid,' /etc/nginx/nginx.conf
+
+...
+```
+
 ### Makefile for convenience
 
 I create a Makefile to save time keep destroying the container, rebuilding and running it.  It was also helpful as the command line to run this started to get a little long. 
