@@ -70,7 +70,7 @@ logs:
 
 Later on I update this as this doesnt work when icc=false and is actually now a legacy approach.
 
-```conf
+```shell
 ...
     location / {
        proxy_pass   http://todos:8080;
@@ -219,7 +219,7 @@ The other change required is the hostname which nginx uses to reference the upst
 
 The updated block in the nginx configuration file is now:
 
-```conf
+```shell
 ...
     location / {
        proxy_pass   http://todos-secure:8080;
