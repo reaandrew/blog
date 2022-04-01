@@ -121,7 +121,7 @@ Success, this shows we can communicate between containers, but I want to disable
 
 To disable the inter-container communication you need to add an argument to the docker systemd file `/lib/systemd/system/docker.service` (the location may be different on your setup.)  The ExecStart line from that file should look like the following:
 
-```unit file (systemd)
+```shell
 ExecStart=/usr/bin/dockerd --icc=false -H fd:// --containerd=/run/containerd/containerd.sock 
 ```
 
