@@ -200,7 +200,7 @@ kill:
 	docker rm nginx-secure 2> /dev/null || :
 	docker kill todos-secure 2> /dev/null || :
 	docker rm todos-secure 2> /dev/null || :
-	docker network rm appz
+	docker network rm appz 2> /dev/null || :
 
 
 .PHONY: logs
@@ -232,6 +232,8 @@ The updated block in the nginx configuration file is now:
 And now when the endpoint is hit from the host we get the correct response.
 
 ```shell
+> make kill
+> make run
 > curl -m 2 -v localhost:8080/todos
 []
 ```
