@@ -2,7 +2,7 @@
 author: "Andy Rea"
 title: "Limiting Docker Resources"
 date: 2022-04-07
-draft: true
+draft: false
 description: "Limiting CPU and Memory with Docker"
 image: "loadtest.png"
 tags: ["docker", "nginx", "linux", "shell", "security"]
