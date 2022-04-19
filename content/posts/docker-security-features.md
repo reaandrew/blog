@@ -16,8 +16,8 @@ tags: ["docker", "nginx", "linux", "shell", "security"]
    1. Use specific build context
 4. Limit Resources
 5. Drop all capabilities
-6. No new privileges
-7. Use Linux Security Module
-8. Static Code Analysis
-9. Sign and verify images
-10. Use meta data labels
+   - No new privileges
+6. Use Linux Security Module
+7. Static Code Analysis
+8. Sign and verify images
+9. Use meta data labels
