@@ -27,11 +27,11 @@ jobs:
 
       - name: Build Hugo
         env:
-          HUGO_BUILD_DIR: public  # update this to your Hugo public directory path
+          HUGO_BUILD_DIR: public
         run: HUGO_ENV=production hugo -t reaandrew -v -d $HUGO_BUILD_DIR
 
       - name: Deploy to GitHub Pages
         uses: actions/gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public  # update this to your Hugo public directory path
+          publish_dir: ./public
