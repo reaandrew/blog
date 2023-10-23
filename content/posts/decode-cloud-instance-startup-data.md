@@ -20,6 +20,28 @@ One of the gaps I have found is where sensitive data is pulled at time of CI, in
 
 This is where this tool comes in, [https://github.com/reaandrew/cloud-startup-data-decoder](https://github.com/reaandrew/cloud-startup-data-decoder).
 
+## Running the tool
+
+```shell
+cloud-init-decoder-linux-amd64 --provider aws
+```
+
+This will result in a directory being created called output (which is the default if you do not specify it) and the nested directory structure contained within a directory to relfect the instance which it was pulled from:
+
+```text
+├── output
+│   └── i-0abcd1234a56789ef
+│       ├── etc
+│       │   └── sample_app
+│       │       └── some-yaml.yaml
+│       └── usr
+│           └── share
+│               └── sample_app
+│                   └── some-text.txt
+```
+
+## More info about the tool...
+
 ### Scenarios
 
 #### Scenario 1:  Use of cloud-init
@@ -96,25 +118,6 @@ H4sICKnBLGUAA3VzZXJkYXRhAL2USY+jOBTH73yKqO6ptiFJhyrlEBYTEiCNAbPczFJAYpYJZIFP33R1
 
 Given that one or more instances will then be created with this user data, you can then run this tool to gather and examine the data as per the realtive file structure they will haveinside the filesystem of the instances they are deployed on.
 
-### Running the tool
-
-```shell
-cloud-init-decoder-linux-amd64 --provider aws
-```
-
-This will result in a directory being created called output (which is the default if you do not specify it) and the nested directory structure contained within a directory to relfect the instance which it was pulled from:
-
-```text
-├── output
-│   └── i-0abcd1234a56789ef
-│       ├── etc
-│       │   └── sample_app
-│       │       └── some-yaml.yaml
-│       └── usr
-│           └── share
-│               └── sample_app
-│                   └── some-text.txt
-```
 
 #### Scenario 2:  Plain old user data
 
