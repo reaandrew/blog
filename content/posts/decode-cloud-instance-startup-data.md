@@ -50,7 +50,6 @@ If you have used `cloud-init` then the output will contain the nested directory 
 
 To read more about `clout-init` see [https://cloudinit.readthedocs.io/en/latest/](https://cloudinit.readthedocs.io/en/latest/)
 
-When you have run the tool you then have a set of directories and files to analyse including checking for sensitive data (which there are many tools out there to help).
 
 ## Why this could be of use
 
