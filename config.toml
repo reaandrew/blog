@@ -1,6 +1,7 @@
 baseURL = "https://andrewrea.co.uk/"
 languageCode = "en-gb"
 pygmentsCodeFences = true
+theme= "reaandrew"
 
 [Author]
   name = "Andy Rea"
@@ -11,5 +12,3 @@ pygmentsCodeFences = true
   linkedin = "reaandrew"
   stackoverflow = "users/67959/rea-andrew"
   youtube = "UCPQcL92tkPkvTdhQZ8EydKQ" # or channel/channelname
-
-
