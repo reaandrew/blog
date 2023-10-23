@@ -23,7 +23,7 @@ This is where this tool comes in, [https://github.com/reaandrew/cloud-startup-da
 ## Running the tool
 
 ```shell
-cloud-init-decoder-linux-amd64 --provider aws
+ cloud-init-decoder-linux-amd64 --provider aws
 ```
 
 If you have plain old user data encoded or not, then a file called userdata is generated inside a directory matching the instance which it came from.  The content of the file will match the content of the user data.
