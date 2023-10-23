@@ -127,7 +127,7 @@ User data can include scripts, configuration files, and other important details.
 
 Sure you can do this via the command line using the AWS CLI, gunzip, base64 etc... but it gets more complicated when you need to deal with MIME and cloud-init data.
 
-For debugging, auditing, or even just understanding what's going on, you need a way to decode and look into this data.
+For debugging, auditing, or even just understanding what's going on, you need a way to decode and look into this data.  For example, when the data has been decoded you could use one of the many secret detection tools to run over the output folder to check for sensitive data inside the user data.
 
 ## Current Features
 
