@@ -1,5 +1,20 @@
 {{ define "main" }}
-  {{ range .Data.Pages }}
-    <h2><a href={{ .Permalink }}>{{ .Title }}</a></h1>
+  {{ range .Pages }}
+    <div class="row mb-4">
+      {{ if .Params.image }}
+      <div class="col-md-3">
+        <img src="/images/{{ .Params.image }}" alt="{{ .Title }}" class="img-fluid">
+      </div>
+      <div class="col-md-9">
+      {{ else }}
+      <div class="col-12">
+      {{ end }}
+        <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        {{ if .Params.description }}
+          <p>{{ .Params.description }}</p>
+        {{ end }}
+        <small class="text-muted">{{ .Date.Format "Mon, Jan 2, 2006" }}</small>
+      </div>
+    </div>
   {{ end }}
 {{ end }}

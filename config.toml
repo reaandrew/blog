@@ -3,6 +3,13 @@ languageCode = "en-gb"
 pygmentsCodeFences = true
 theme= "reaandrew"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.parser.attribute]
+      block = true
+
 [Author]
   name = "Andy Rea"
   email = "email@andrewrea.co.uk"

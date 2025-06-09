@@ -1,9 +1,24 @@
 {{ define "main" }}
   {{ range where .Site.Pages "Section" "posts"  }}
     {{if ne .Title "Posts"}}
-    <h2><a class="text-dark" href="{{ .Permalink }}">{{ .Title }}</a></h2>
-    <p>{{.Summary}}</p>
-    <p>{{.Date.Format "January 2, 2006"}}</p>
-      {{end}}
+    <div class="row mb-4">
+      {{ if .Params.image }}
+      <div class="col-md-3">
+        <img src="/images/{{ .Params.image }}" alt="{{ .Title }}" class="img-fluid" style="max-width: 100%; height: auto; border-radius: 8px;">
+      </div>
+      <div class="col-md-9">
+      {{ else }}
+      <div class="col-12">
+      {{ end }}
+        <h2><a class="text-dark" href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        {{ if .Params.description }}
+          <p>{{ .Params.description }}</p>
+        {{ else }}
+          <p>{{ .Summary }}</p>
+        {{ end }}
+        <p class="text-secondary"><strong>{{ .Date.Format "January 2, 2006" }}</strong></p>
+      </div>
+    </div>
+    {{end}}
   {{ end }}
 {{ end }}
