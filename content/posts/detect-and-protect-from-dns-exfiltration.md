@@ -1,6 +1,6 @@
 ---
 author: "Andy Rea"
-title: "Detect and Protect from DNS data exfiltration using AWS DNS Firewall, Athena, Glue, S3 and Lambda"
+title: "Complementing GuardDuty: DNS Exfiltration Detection and Protection in under 60 seconds with AWS DNS Firewall, Athena, Glue, S3, and Lambda"
 date: 2025-06-03
 draft: false
 description: "In under 2 minutes from receiving DNS traffic, I built an AWS integration that automatically detects high-frequency DNS queries (potential data exfiltration attempts) and immediately adds blocking rules to Route 53 DNS Firewall to prevent further data transmission. This post demonstrates real-time DNS threat detection and automated protection using AWS services."
@@ -8,16 +8,24 @@ image: "dns_data_exfiltration.png"
 tags: ["DNS exfiltration", "AWS security", "threat detection", "Route 53","Amazon Athena", "DNS monitoring", "automated protection", "real-time analysis", "DNS Firewall", "cybersecurity"]
 ---
 
+Here’s your updated **TL;DR** section with the GuardDuty comparison and context folded in:
+
+
 ## TL;DR
-In under 60 seconds from receiving DNS traffic, this AWS solution automatically **detected** high-frequency DNS queries (potential data-exfiltration attempts) and immediately **added** blocking rules to Route 53 DNS Firewall to prevent further data transmission. This post **demonstrated** real-time DNS threat detection and automated protection by using AWS services.
+
+In under 60 seconds from receiving DNS traffic, this AWS solution automatically **detected** high-frequency DNS queries (potential data-exfiltration attempts) and immediately **added** blocking rules to Route 53 DNS Firewall to prevent further data transmission. This post **demonstrates** real-time DNS threat detection and automated protection using AWS services.
+
+While **GuardDuty** can detect DNS-based data exfiltration, my experience showed that it often responds **too slowly** to catch fast tunneling attacks. I was curious whether I could build something **faster** using serverless components—this project was the result.
 
 ### Actual Timeline (55 s end-to-end)
-1. **11 : 58 : 14** – DNS queries **were logged** to S3
-2. **11 : 58 : 15** – Partition repair **was triggered** (< 1 s)
-3. **11 : 59 : 09** – Threat **was detected** & firewall rule **was created**
-4. **Total: 55 seconds** from DNS traffic to automated blocking
+- **11 : 58 : 14** – DNS queries **were logged** to S3  
+- **11 : 58 : 15** – Partition repair **was triggered** (< 1 s)  
+- **11 : 59 : 09** – Threat **was detected** & firewall rule **was created**  
+- **Total:** 55 seconds from DNS traffic to automated blocking
 
----
+> ⚠️ **Important Note:** This is an experimental project designed to explore DNS exfiltration patterns and AWS service orchestration. It is **not** production-grade and should only be used after thorough review, testing, and hardening.
+
+**SOURCE CODE** – All code for this experiment is available at: [https://github.com/reaandrew/dnsexfil](https://github.com/reaandrew/dnsexfil)
 
 ## Background
 A while back I **spent** time learning more about DNS data-exfiltration. One simple technique **was** to chunk and encode data into sub-domains: a DNS query to that sub-domain **sent** the data to the name-server, which could decode and rebuild it—simple yet powerful.
@@ -104,6 +112,30 @@ PowerDNS **dnsdist** added a dynamic-block feature (Issue #7380, fixed 11 Dec 20
 
 Reference: <https://github.com/PowerDNS/pdns/issues/7380>
 
+## GuardDuty: Complementary Detection in Defense-in-Depth
+
+This 55-second detection system works alongside AWS GuardDuty, not instead of it. Both provide valuable but different capabilities:
+
+| System          | Timeline                 | Purpose                                        |
+|-----------------|--------------------------|------------------------------------------------|
+| Custom Pipeline | 55 seconds               | Immediate blocking of high-frequency bursts    |
+| AWS GuardDuty   | 15 minutes to 1+ hours   | ML-based validation with lower false positives |
+{.table}
+
+**Is Faster Detection Worth It?**
+
+It depends. The time, cost, and complexity of this experimental solution on top of GuardDuty is relatively low, so a pre-made extensible solution could add value rather than reducing it. The infrastructure deploys in ~66 seconds, costs ~$30-95/month for most use cases, and provides immediate protection against high-frequency attacks that could exfiltrate significant data during GuardDuty's variable detection window. However, implementing this in production would require thorough security review, testing, and hardening to ensure it meets enterprise security standards.
+
+**Defense-in-Depth Value**
+
+This experimental custom pipeline stops high-frequency exfiltration under 60 seconds while GuardDuty provides threat validation for sophisticated patterns. GuardDuty's detection window of 15 minutes to 1+ hours (depending on traffic patterns) could allow significant data loss in burst attacks—demonstrating why sub-minute response times matter for comprehensive DNS protection. Any production implementation would need extensive security review, testing, and hardening to validate detection accuracy and prevent false positives that could disrupt legitimate traffic.
+
+**Note:** According to AWS documentation, GuardDuty focuses on [detection rather than automatic blocking](https://aws.amazon.com/guardduty/faqs/#topic-2). AWS provides [guidance to automatically update DNS Firewall rules](https://aws.amazon.com/blogs/security/automatically-block-suspicious-dns-activity-with-amazon-guardduty-and-route-53-resolver-dns-firewall/) based on GuardDuty findings, similar to the approach demonstrated in this blog post.
+
+**Architectural Consideration:** I chose to add firewall rules directly in this solution, whereas it would have been better to follow the GuardDuty approach and instead publish security events to EventBridge and Security Hub, then respond to these with Lambda. This would provide better integration with existing security workflows and allow for more sophisticated response orchestration.
+
+Both systems together provide comprehensive coverage: fast protection plus accurate threat intelligence.
+
 ## Monthly Cost Estimates (Excluding EC2)
 
 | Service / Traffic Level   | Low (10 K q/day) | Medium (500 K q/day) | High (10 M q/day) |
@@ -119,7 +151,7 @@ Reference: <https://github.com/PowerDNS/pdns/issues/7380>
 
 ## Future Detection Patterns to Explore
 
-While this project focused on **high-frequency queries to a shared base domain** (e.g. `*.tunnel.example.com`), there are several other DNS exfiltration and misuse patterns I’m interested in adding detection logic for:
+While this project focused on **high-frequency queries to a shared base domain** (e.g. `*.tunnel.example.com`), there are several other DNS exfiltration and misuse patterns I’m interested in exploring. For each pattern, I would first evaluate GuardDuty's response time and feature support—if the pattern could be accelerated or if GuardDuty lacks coverage for specific detection logic, then I would investigate it further in future experiments:
 
 **High-entropy subdomains**  
 Subdomains with **long**, **random-looking** labels—often base64 or hex—are a strong indicator of tunneling activity. These may look like:
@@ -161,11 +193,11 @@ A longer-term experiment I’m planning involves piping 24-hour logs into a Larg
 
 Each of these ideas can be integrated into the existing Athena + Lambda pipeline with minor additions to the SQL logic or threat-detection Lambda handler. Over time, this can evolve into a layered detection system for multiple forms of DNS misuse.
 
-## Infrastructure Provisioning Summary
+## Infrastructure Provisioning and Destruction Summary
 
 The full setup completed in **~1 minute** using Terraform, including VPC, S3, Glue, Athena, Route 53, GuardDuty, IAM, and Lambda resources.
 
-**Highlights:**
+**Provisioning Highlights:**
 
 - **VPC & Networking** – 11 s
 - **S3 Buckets & Glue Tables** – 2–3 s
@@ -179,6 +211,23 @@ The full setup completed in **~1 minute** using Terraform, including VPC, S3, Gl
 ```shell
 Total elapsed time: 1:06.55 (via `time`)
 ```
+
+Tearing down the full environment took **~57 seconds**, cleaning up all AWS resources including networking, logging, Athena, Glue, Lambda, and DNS Firewall.
+
+**Destruction Highlights:**
+
+- **Athena & Glue Cleanup** – Instant (0 s each)
+- **Lambda Functions & IAM Roles** – 0–1 s
+- **CloudWatch Log Groups & Event Rules** – 0–1 s
+- **Route 53 DNS Firewall Domain List** – 33 s
+- **EC2 Instance Termination** – 41 s
+- **VPC Networking (IGW/Subnet/SG)** – IGW 27 s, Subnet 3 s, SG instant
+- **Longest Item** – DNS Firewall rule group association: 46 s
+
+```shell
+Total elapsed time: 0:56.70 (via `time`)
+```
+
 
 ## Public Suffix List Loader Script
 To identify the true apex domain of every query, I **needed** a fast, deterministic lookup table rather than splitting labels on the fly. The loader below **downloads** the canonical Public Suffix List, **removes** wildcard/exception rules, **converts** each entry into `suffix,label_count` CSV and **uploads** it to S3 for Athena.
@@ -226,3 +275,14 @@ rm -f /tmp/psl.dat /tmp/process_psl.py /tmp/public_suffixes.csv
 
 echo "Done! PSL data uploaded to S3."
 ```
+
+## Conclusion
+
+This experiment has taught me a lot more about DNS, types of exfiltration methods and tools, ways to detect and also protect. It has also shown me how other products have implemented these patterns and shown me the difference in timings and also some clue as to the implementation.
+
+While this project focused on demonstrating detection and protection concepts using a simple test loop, there are more sophisticated DNS tunneling tools available that I researched but didn't use in this experiment (as it would be overkill for what I set out to prove). Notable tools include:
+
+- **[iodine](https://github.com/yarrick/iodine)** - A DNS tunnel that allows IPv4 data through DNS servers
+- **[dnscat2](https://github.com/iagox86/dnscat2)** - A tool for creating encrypted command-and-control channels over DNS
+
+These tools demonstrate the real-world complexity of DNS exfiltration techniques and highlight why comprehensive detection systems—whether custom-built like the one in this project, or enterprise and commercial products—are essential for modern network security. Like tests, security controls should be tested to ensure they can be seen to both pass and equally important, fail.

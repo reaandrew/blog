@@ -1,8 +1,16 @@
 {{ define "main" }}
   <div class="row">
     <div class="col">
-      <h1>{{ .Title }}</h1>
-      <h2>{{ .Date.Format "Mon, Jan 2, 2006" }}</h2>
+      <div class="mb-4 pb-3" style="border-bottom: 2px solid #dee2e6;">
+        <h1 class="mb-2">{{ .Title }}</h1>
+        <div class="d-flex justify-content-between align-items-center">
+          <p class="text-muted mb-0">
+            <i class="fa fa-calendar" aria-hidden="true"></i> {{ .Date.Format "January 2, 2006" }}
+            {{ if .Params.author }} • By {{ .Params.author }}{{ end }}
+          </p>
+          <small class="text-muted">{{ .ReadingTime }} min read</small>
+        </div>
+      </div>
       {{ .Content }}
       {{ if .Params.image }}
         <img src="/images/{{ .Params.image }}" alt="{{ .Title }}" class="img-fluid mt-4" style="border-radius: 8px;">
