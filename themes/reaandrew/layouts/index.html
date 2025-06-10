@@ -16,7 +16,7 @@
         {{ else }}
           <p>{{ .Summary }}</p>
         {{ end }}
-        <p class="text-secondary"><strong>{{ .Date.Format "January 2, 2006" }}</strong></p>
+        <p class="text-secondary"><strong>{{ .Date.Format "January 2, 2006" }} • {{ .ReadingTime }} min read</strong></p>
       </div>
     </div>
     {{end}}
