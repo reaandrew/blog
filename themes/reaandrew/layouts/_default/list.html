@@ -13,7 +13,7 @@
         {{ if .Params.description }}
           <p>{{ .Params.description }}</p>
         {{ end }}
-        <small class="text-muted">{{ .Date.Format "Mon, Jan 2, 2006" }}</small>
+        <small class="text-muted">{{ .Date.Format "Mon, Jan 2, 2006" }} • {{ .ReadingTime }} min read</small>
       </div>
     </div>
   {{ end }}
