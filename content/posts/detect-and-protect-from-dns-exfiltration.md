@@ -2,7 +2,7 @@
 author: "Andy Rea"
 title: "Complementing GuardDuty: DNS Exfiltration Detection and Protection in under 60 seconds with AWS DNS Firewall, Athena, Glue, S3, and Lambda"
 date: 2025-06-03
-draft: true
+draft: false
 description: "In under 2 minutes from receiving DNS traffic, I built an AWS integration that automatically detects high-frequency DNS queries (potential data exfiltration attempts) and immediately adds blocking rules to Route 53 DNS Firewall to prevent further data transmission. This post demonstrates real-time DNS threat detection and automated protection using AWS services."
 image: "dns_data_exfiltration.png"
 tags: ["DNS exfiltration", "AWS security", "threat detection", "Route 53","Amazon Athena", "DNS monitoring", "automated protection", "real-time analysis", "DNS Firewall", "cybersecurity"]
