@@ -8,8 +8,6 @@ image: "dns_data_exfiltration.png"
 tags: ["DNS exfiltration", "AWS security", "threat detection", "Route 53","Amazon Athena", "DNS monitoring", "automated protection", "real-time analysis", "DNS Firewall", "cybersecurity"]
 ---
 
-Here’s your updated **TL;DR** section with the GuardDuty comparison and context folded in:
-
 
 ## TL;DR
 
