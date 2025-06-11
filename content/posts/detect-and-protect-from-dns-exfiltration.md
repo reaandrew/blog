@@ -39,7 +39,7 @@ To wire everything together, I built a three-layer, event-driven pipeline that c
 
 - **Data-collection layer** – Route 53 Resolver streamed every DNS lookup from the VPC straight into an S3 bucket defined in `dns_logs_athena.tf`, while a single `m5.large` instance generated the test traffic. Raw logs and Athena result sets lived in separate buckets so I could version-control retention independently.
 - **Analysis layer** – The moment a new log dropped, a Partition-Repair Lambda (`lambdas/partition-repair`) fired and ran `MSCK REPAIR TABLE` so Athena could see the fresh partitions. Every five minutes an Athena workgroup ran a high-frequency-exfiltration query that flagged bursts of > 20 requests to the same apex domain within a five-minute window. Domain parsing leaned on the Public Suffix List, so `something.co.uk` didn’t raise a false alarm.
-- **Response layer** – A second Lambda (`lambdas/threat-detection`) ran on a one-minute schedule, pulled the Athena results and, for anything rated HIGH or CRITICAL, wrote an immediate DNS-Firewall rule. If there were more than ten unique sub-domains it dropped a wildcard block (`*.domain.com`); otherwise it blocked the apex. CloudWatch kept score on timing, error counts and cost.
+- **Response layer** – A second Lambda (`lambdas/threat-detection`) ran on a one-minute schedule, pulled the Athena results and, for anything rated HIGH or CRITICAL, wrote an immediate DNS-Firewall rule. If there were more than ten unique sub-domains it dropped a wildcard block (`*.domain.com`); otherwise it blocked the apex.
 
 Because logs went straight to S3 and Athena scanned only the latest five-minute partition, the whole loop remained inexpensive and, more importantly, reacted inside a minute.
 
@@ -49,7 +49,7 @@ Because logs went straight to S3 and Athena scanned only the latest five-minute 
 ## Athena Experience & Query Generation
 I’ll be honest—I hadn’t used Amazon Athena much before this project, and it quickly became the star of the show. Athena brings a surprisingly complete set of SQL constructs you’d expect from a traditional RDBMS (window functions, CTEs, regex, `WITH` clauses, you name it) yet scales effortlessly to hundreds of gigabytes of logs without any cluster management on my side.
 
-The detection queries are a bit gnarly, so I leaned on an LLM to refine the SQL and verify edge cases. Here’s a snippet of the high frequency exfiltration detector:
+The detection queries are a bit gnarly, so I leaned on an LLM to create and refine the SQL and verify edge cases. Here’s a snippet of the high frequency exfiltration detector:
 
 ```sql
 SELECT
@@ -122,7 +122,7 @@ This 55-second detection system works alongside AWS GuardDuty, not instead of it
 
 **Is Faster Detection Worth It?**
 
-It depends. The time, cost, and complexity of this experimental solution on top of GuardDuty is relatively low, so a pre-made extensible solution could add value rather than reducing it. The infrastructure deploys in ~66 seconds, costs ~$30-95/month for most use cases, and provides immediate protection against high-frequency attacks that could exfiltrate significant data during GuardDuty's variable detection window. However, implementing this in production would require thorough security review, testing, and hardening to ensure it meets enterprise security standards.
+It depends. The time, cost, and complexity of this experimental solution on top of GuardDuty is relatively low, so a pre-made extensible solution could add value rather than reducing it. The infrastructure deploys in ~66 seconds, costs ~$30-95/month for most use cases, and provides immediate protection against high-frequency attacks that could exfiltrate significant data during GuardDuty's variable detection window. 
 
 **Defense-in-Depth Value**
 
@@ -187,7 +187,7 @@ HAVING subdomain_count > 10
 ```
 
 **LLM-assisted log analysis**  
-A longer-term experiment I’m planning involves piping 24-hour logs into a Large Language Model (LLM) and asking it to summarise unusual domain names, query rates, or outliers. While not deterministic, this adds another layer of heuristic analysis that might catch subtle trends or new tooling before they show up as signatured events.
+A longer-term experiment I’m planning involves piping 24-hour logs into a Large Language Model (LLM) and asking it to summarise unusual domain names, query rates, or outliers. While not deterministic, this adds another layer of heuristic analysis that might catch subtle trends or new tooling before they show up as events.
 
 Each of these ideas can be integrated into the existing Athena + Lambda pipeline with minor additions to the SQL logic or threat-detection Lambda handler. Over time, this can evolve into a layered detection system for multiple forms of DNS misuse.
 
