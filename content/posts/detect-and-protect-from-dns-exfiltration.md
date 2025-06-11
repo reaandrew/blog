@@ -11,14 +11,14 @@ tags: ["DNS exfiltration", "AWS security", "threat detection", "Route 53","Amazo
 
 ## TL;DR
 
-In under 60 seconds from receiving DNS traffic, this AWS solution automatically **detected** high-frequency DNS queries (potential data-exfiltration attempts) and immediately **added** blocking rules to Route 53 DNS Firewall to prevent further data transmission. This post **demonstrates** real-time DNS threat detection and automated protection using AWS services.
+In under 60 seconds from receiving DNS traffic, this AWS solution automatically detected high-frequency DNS queries (potential data-exfiltration attempts) and immediately added blocking rules to Route 53 DNS Firewall to prevent further data transmission. This post demonstrates real-time DNS threat detection and automated protection using AWS services.
 
-While **GuardDuty** can detect DNS-based data exfiltration, my experience showed that it often responds **too slowly** to catch fast tunneling attacks. I was curious whether I could build something **faster** using serverless components—this project was the result.
+While **GuardDuty** can detect DNS-based data exfiltration, my experience showed that it often responds too slowly to catch fast tunneling attacks. I was curious whether I could build something faster using serverless components—this project was the result.
 
 ### Actual Timeline (55 s end-to-end)
-- **11 : 58 : 14** – DNS queries **were logged** to S3  
-- **11 : 58 : 15** – Partition repair **was triggered** (< 1 s)  
-- **11 : 59 : 09** – Threat **was detected** & firewall rule **was created**  
+- **11 : 58 : 14** – DNS queries were logged to S3  
+- **11 : 58 : 15** – Partition repair was triggered (< 1 s)  
+- **11 : 59 : 09** – Threat was detected & firewall rule was created
 - **Total:** 55 seconds from DNS traffic to automated blocking
 
 > ⚠️ **Important Note:** This is an experimental project designed to explore DNS exfiltration patterns and AWS service orchestration. It is **not** production-grade and should only be used after thorough review, testing, and hardening.
@@ -26,22 +26,22 @@ While **GuardDuty** can detect DNS-based data exfiltration, my experience showed
 **SOURCE CODE** – All code for this experiment is available at: [https://github.com/reaandrew/dnsexfil](https://github.com/reaandrew/dnsexfil)
 
 ## Background
-A while back I **spent** time learning more about DNS data-exfiltration. One simple technique **was** to chunk and encode data into sub-domains: a DNS query to that sub-domain **sent** the data to the name-server, which could decode and rebuild it—simple yet powerful.
+A while back I spent time learning more about DNS data-exfiltration. One simple technique was to chunk and encode data into sub-domains: a DNS query to that sub-domain sent the data to the name-server, which could decode and rebuild it—simple yet powerful.
 
 ![dns_logical.png](/images/dns_logical.png)
 
-That experiment **got** me thinking about how I could both detect and protect against this. Many products **offered** coverage, but I **wanted** to understand the patterns to look for and the safeguards I could put in place, so I **built** a small setup by using AWS managed services.
+That experiment got me thinking about how I could both detect and protect against this. Many products offered coverage, but I wanted to understand the patterns to look for and the safeguards I could put in place, so I built a small setup by using AWS managed services.
 
 ![simple_dns_infrastructure.png](/images/simple_dns_infrastructure.png)
 
 ## Pipeline Architecture
-To wire everything together, I **built** a three-layer, event-driven pipeline that **collected** every DNS query, **analysed** it in near-real time and **pushed** blocks straight back into Route 53 DNS Firewall:
+To wire everything together, I built a three-layer, event-driven pipeline that collected every DNS query, analysed it in near-real time and pushed blocks straight back into Route 53 DNS Firewall:
 
-- **Data-collection layer** – Route 53 Resolver **streamed** every DNS lookup from the VPC straight into an S3 bucket defined in `dns_logs_athena.tf`, while a single `m5.large` instance **generated** the test traffic. Raw logs and Athena result sets **lived** in separate buckets so I could version-control retention independently.
-- **Analysis layer** – The moment a new log **dropped**, a Partition-Repair Lambda (`lambdas/partition-repair`) **fired** and **ran** `MSCK REPAIR TABLE` so Athena could see the fresh partitions. Every five minutes an Athena workgroup **ran** a high-frequency-exfiltration query that **flagged** bursts of > 20 requests to the same apex domain within a five-minute window. Domain parsing **leaned** on the Public Suffix List, so `something.co.uk` **didn’t raise** a false alarm.
-- **Response layer** – A second Lambda (`lambdas/threat-detection`) **ran** on a one-minute schedule, **pulled** the Athena results and, for anything rated **HIGH** or **CRITICAL**, **wrote** an immediate DNS-Firewall rule. If there **were** more than ten unique sub-domains it **dropped** a wildcard block (`*.domain.com`); otherwise it **blocked** the apex. CloudWatch **kept** score on timing, error counts and cost.
+- **Data-collection layer** – Route 53 Resolver streamed every DNS lookup from the VPC straight into an S3 bucket defined in `dns_logs_athena.tf`, while a single `m5.large` instance generated the test traffic. Raw logs and Athena result sets lived in separate buckets so I could version-control retention independently.
+- **Analysis layer** – The moment a new log dropped, a Partition-Repair Lambda (`lambdas/partition-repair`) fired and ran `MSCK REPAIR TABLE` so Athena could see the fresh partitions. Every five minutes an Athena workgroup ran a high-frequency-exfiltration query that flagged bursts of > 20 requests to the same apex domain within a five-minute window. Domain parsing leaned on the Public Suffix List, so `something.co.uk` didn’t raise a false alarm.
+- **Response layer** – A second Lambda (`lambdas/threat-detection`) ran on a one-minute schedule, pulled the Athena results and, for anything rated HIGH or CRITICAL, wrote an immediate DNS-Firewall rule. If there were more than ten unique sub-domains it dropped a wildcard block (`*.domain.com`); otherwise it blocked the apex. CloudWatch kept score on timing, error counts and cost.
 
-Because logs **went** straight to S3 and Athena **scanned** only the latest five-minute partition, the whole loop **remained** inexpensive and, more importantly, **reacted** inside a minute.
+Because logs went straight to S3 and Athena scanned only the latest five-minute partition, the whole loop remained inexpensive and, more importantly, reacted inside a minute.
 
 ![step_by_step_flow.png](/images/step_by_step_flow.png)
 
@@ -87,7 +87,7 @@ LIMIT 50;
 ```
 
 ## Traffic Generation Test
-To generate a realistic burst, I **launched** a single instance in the target VPC and **pointed** it at a custom DNS server in a separate AWS account. A loop of **250** `dig` calls with no delay **queried** `(6-random-hex-chars).dnsdemo.andrewrea.co.uk`, giving the pipeline plenty of high-frequency noise to detect. The Response Lambda described above **executed** the saved Athena query every minute and **pushed** a DNS-Firewall rule whenever it saw a **HIGH** or **CRITICAL** result—keeping reaction time under a minute.
+To generate a realistic burst, I launched a single instance in the target VPC and pointed it at a custom DNS server in a separate AWS account. A loop of 250 `dig` calls with no delay queried `(6-random-hex-chars).dnsdemo.andrewrea.co.uk`, giving the pipeline plenty of high-frequency noise to detect. The Response Lambda described above executed the saved Athena query every minute and pushed a DNS-Firewall rule whenever it saw a HIGH or CRITICAL result—keeping reaction time under a minute.
 
 ```shell
     for i in {1..250}; do
@@ -98,7 +98,7 @@ To generate a realistic burst, I **launched** a single instance in the target VP
 Once I had seen the firewall blocking rule created, I executed the same test generation (new subdomains so not to be mistaken with DNS caching on the client) and no calls made it through to the server.  Success!
 
 ## Commercial Comparison – PowerDNS vs AWS
-PowerDNS **dnsdist** added a dynamic-block feature (Issue #7380, fixed 11 Dec 2023) that fires when a client shows a high **cache-miss** ratio. My AWS pipeline counts **unique sub-domains** (> 20 in 5 minutes). Same intuition, different signals:
+PowerDNS dnsdist added a dynamic-block feature (Issue #7380, fixed 11 Dec 2023) that fires when a client shows a high cache-miss ratio. My AWS pipeline counts unique sub-domains (> 20 in 5 minutes). Same intuition, different signals:
 
 |                           | PowerDNS dnsdist | AWS pipeline |
 |---------------------------|------------------|--------------|
@@ -152,7 +152,7 @@ Both systems together provide comprehensive coverage: fast protection plus accur
 While this project focused on **high-frequency queries to a shared base domain** (e.g. `*.tunnel.example.com`), there are several other DNS exfiltration and misuse patterns I’m interested in exploring. For each pattern, I would first evaluate GuardDuty's response time and feature support—if the pattern could be accelerated or if GuardDuty lacks coverage for specific detection logic, then I would investigate it further in future experiments:
 
 **High-entropy subdomains**  
-Subdomains with **long**, **random-looking** labels—often base64 or hex—are a strong indicator of tunneling activity. These may look like:
+Subdomains with long, random-looking labels—often base64 or hex—are a strong indicator of tunneling activity. These may look like:
 
 ```shell
 b79f5a89d2b23a3d6e.example.com  
@@ -162,7 +162,7 @@ MDEyMzQ1Njc4OWFiY2Rl.example.com
 Statistical analysis or entropy scoring on the label can help distinguish these from normal DNS patterns.
 
 **Unusually long domain names**  
-Total FQDN lengths exceeding **100+ characters** are rare in standard usage but common in tunneling scenarios where encoded data is packed into the label space. A simple `length(fqdn) > 100` check could flag these for review.
+Total FQDN lengths exceeding 100+ characters are rare in standard usage but common in tunneling scenarios where encoded data is packed into the label space. A simple `length(fqdn) > 100` check could flag these for review.
 
 **Uncommon query types**  
 Exfiltration tools like `iodine` or `dnscat2` often use **TXT**, **NULL**, or **CNAME** query types instead of the usual `A` or `AAAA`. Filtering based on `qtype` can catch these:
@@ -174,7 +174,7 @@ WHERE qtype IN ('TXT', 'NULL', 'CNAME')
 ```
 
 **Subdomain Enumeration**  
-Attackers performing reconnaissance may brute-force subdomains (e.g., `dev.example.com`, `test.example.com`). A sudden spike in **unique subdomains** (e.g., >10 within 10 minutes) can indicate enumeration attempts:
+Attackers performing reconnaissance may brute-force subdomains (e.g., `dev.example.com`, `test.example.com`). A sudden spike in unique subdomains (e.g., >10 within 10 minutes) can indicate enumeration attempts:
 
 ```sql
 SELECT
@@ -187,13 +187,13 @@ HAVING subdomain_count > 10
 ```
 
 **LLM-assisted log analysis**  
-A longer-term experiment I’m planning involves piping 24-hour logs into a Large Language Model (LLM) and asking it to summarise **unusual domain names**, **query rates**, or **outliers**. While not deterministic, this adds another layer of **heuristic analysis** that might catch subtle trends or new tooling before they show up as signatured events.
+A longer-term experiment I’m planning involves piping 24-hour logs into a Large Language Model (LLM) and asking it to summarise unusual domain names, query rates, or outliers. While not deterministic, this adds another layer of heuristic analysis that might catch subtle trends or new tooling before they show up as signatured events.
 
 Each of these ideas can be integrated into the existing Athena + Lambda pipeline with minor additions to the SQL logic or threat-detection Lambda handler. Over time, this can evolve into a layered detection system for multiple forms of DNS misuse.
 
 ## Infrastructure Provisioning and Destruction Summary
 
-The full setup completed in **~1 minute** using Terraform, including VPC, S3, Glue, Athena, Route 53, GuardDuty, IAM, and Lambda resources.
+The full setup completed in ~1 minute using Terraform, including VPC, S3, Glue, Athena, Route 53, GuardDuty, IAM, and Lambda resources.
 
 **Provisioning Highlights:**
 
@@ -228,7 +228,7 @@ Total elapsed time: 0:56.70 (via `time`)
 
 
 ## Public Suffix List Loader Script
-To identify the true apex domain of every query, I **needed** a fast, deterministic lookup table rather than splitting labels on the fly. The loader below **downloads** the canonical Public Suffix List, **removes** wildcard/exception rules, **converts** each entry into `suffix,label_count` CSV and **uploads** it to S3 for Athena.
+To identify the true apex domain of every query, I needed a fast, deterministic lookup table rather than splitting labels on the fly. The loader below downloads the canonical Public Suffix List, removes wildcard/exception rules, converts each entry into `suffix,label_count` CSV and uploads it to S3 for Athena.
 
 ```shell
 #!/bin/bash
